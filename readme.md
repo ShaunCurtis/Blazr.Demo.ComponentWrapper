@@ -1,5 +1,6 @@
-# Creating Wrapper Components.
+# Creating Wrapper Components
 
+## Introduction
 
 It's relatively easy to do this:
 
@@ -23,9 +24,13 @@ Forms are a good example.  You want to impose a standard edit or view form wrapp
 
 Unfortunately the standard Blazor component wasn't designed for this.  There are workarounds, but none are nice.
 
-To implement this more cleanly we need a new componwent where we control how the component render fragment is built.
+## Repo
 
-For this we'll use my lean, mean, green component.  There's a refernce link in the Appendix.
+[Blazr.Demo.ComponentWrapper Repo](https://github.com/ShaunCurtis/Blazr.Demo.ComponentWrapper)
+
+## The New Component
+
+A new component is needed to implement this cleanly.  The base component we use here is my lean, mean, green component.  There's a reference link in the Appendix.
 
 First this is a wrapper in action.  Note:
 
@@ -46,7 +51,7 @@ First this is a wrapper in action.  Note:
 }
 ```
 
-Now `UIWrapperComponentBase`.
+### UIWrapperComponentBase
 
 Note:
 
@@ -83,6 +88,71 @@ public abstract class UIWrapperComponentBase : UIComponentBase
 }
 ```
 
+`UIComponentBase` doesn't implement any automated UI Event Handling.  If you want `ComponentBase` type handling you need to implement it yourself.
+
+### Adding Automated UI Rendering
+
+If you need automated UI rendering, implement `IHandleEvent`.
+
+For a single render:
+
+```csharp
+@implements IHandleEvent
+
+//...
+@code {
+    public async Task HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+    {
+        await callback.InvokeAsync(arg);
+        StateHasChanged();
+    }
+}
+```
+
+For the `ComponentBase` double event:
+
+```csharp
+@implements IHandleEvent
+
+//...
+@code {
+    public async Task HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+    {
+        var task = callback.InvokeAsync(arg);
+        if (task.Status != TaskStatus.RanToCompletion && task.Status != TaskStatus.Canceled)
+        {
+            StateHasChanged();
+            await task;
+        }
+        StateHasChanged();
+    }
+}
+```
+
+### Adding OnAfterRender
+
+If you need to implement the `OnAfterRender` event, implement `IHandleAfterRender`.
+
+```csharp
+@implements IHandleAfterRender
+
+//...
+
+@code {
+    private bool _hasCalledOnAfterRender;
+
+    public Task OnAfterRenderAsync()
+    {
+        var firstRender = !_hasCalledOnAfterRender;
+        _hasCalledOnAfterRender |= true;
+
+        // your code here
+
+        return Task.CompletedTask;
+    }
+}
+```
+
 ## Demo
 
 Here's a simple demo setting `Index` to inherit from `MyWrapper`.
@@ -91,12 +161,7 @@ The result:
  
 ![Wrapper Demo](./assets/Wrapper-Components/wrapper-demo.png)
 
-
-
-
-
-
-
 ## Appendix
 
-[The Lean, Mean, Green Component]()
+[The Lean, Mean, Green Component]([The Lean, Mean, Green Component](https://shauncurtis.github.io/Building-Blazor-Applications/Leaner-Meaner-Greener-Components.html)
+)
