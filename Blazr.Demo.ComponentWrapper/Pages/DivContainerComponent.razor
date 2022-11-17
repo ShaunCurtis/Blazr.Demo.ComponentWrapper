@@ -1,0 +1,8 @@
+﻿<h3>DivContainerComponent</h3>
+<div class="bg-dark text-white m-3 p-2">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

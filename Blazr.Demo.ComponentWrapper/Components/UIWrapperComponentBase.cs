@@ -9,37 +9,39 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace Blazr.UI;
 
 /// <summary>
-/// Base minimum footprint component for building UI Components
-/// with single PreRender event method
+/// Component for building Wrapper UI Components
 /// </summary>
 public abstract class UIWrapperComponentBase : UIComponentBase
 {
-    protected virtual void BuildComponent(RenderTreeBuilder builder)
-    {
-        if (this.Wrapper is not null)
-        {
-            this.Wrapper.Invoke(builder);
-            return;
-        }
-
-        BuildRenderTree(builder);
-    }
-
     /// <summary>
-    /// This is the Wrapper Contwent
+    /// This is the Wrapper Content where we define the wrapper content
+    /// Use @Content for the chidl content
     /// </summary>
-    protected virtual RenderFragment? Wrapper { get; }
+    protected abstract RenderFragment? Wrapper { get; }
 
+    // This is where we capture the content from the chidl component
+    // The Blazor compiler overrides BuildRenderTree with this content
     protected RenderFragment? Content => (builder) => this.BuildRenderTree(builder);
 
+    // Ctor that caches the component render fragment
     public UIWrapperComponentBase()
     {
         this.renderFragment = builder =>
         {
             hasPendingQueuedRender = false;
             hasNeverRendered = false;
-            if (!(this.hide | this.Hidden))
-                this.BuildComponent(builder);
+            var hide = this.hide | this.Hidden;
+
+            if (hide)
+                return;
+
+            if (this.Wrapper is not null)
+            {
+                this.Wrapper.Invoke(builder);
+                return;
+            }
+
+            BuildRenderTree(builder);
         };
     }
 }

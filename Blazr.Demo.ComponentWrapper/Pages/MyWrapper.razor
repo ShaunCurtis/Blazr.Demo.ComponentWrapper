@@ -1,5 +1,9 @@
 ﻿@using Blazr.UI
 @inherits UIWrapperComponentBase
+@*
+@implements IHandleAfterRender
+@implements IHandleEvent
+*@
 
 @code {
     protected override RenderFragment Wrapper => (__builder) =>
@@ -8,4 +12,23 @@
         @this.Content
         </div>
     };
+
+    // uncomment of you want UI events
+    //public async Task HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+    //{
+    //    await callback.InvokeAsync(arg);
+    //    StateHasChanged();
+    //}
+
+    // Uncomment of you want OnAfterRenderAsync
+    //private bool _hasCalledOnAfterRender;
+    //public Task OnAfterRenderAsync()
+    //{
+    //    var firstRender = !_hasCalledOnAfterRender;
+    //    _hasCalledOnAfterRender |= true;
+
+    //    // your code here
+
+    //    return Task.CompletedTask;
+    //}
 }

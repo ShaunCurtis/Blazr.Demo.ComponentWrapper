@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazr.Demo.ComponentWrapper", "Blazr.Demo.ComponentWrapper\Blazr.Demo.ComponentWrapper.csproj", "{B79BDF5F-90DA-4D52-AFF4-7632B1E5D7C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.ComponentWrapper", "Blazr.Demo.ComponentWrapper\Blazr.Demo.ComponentWrapper.csproj", "{B79BDF5F-90DA-4D52-AFF4-7632B1E5D7C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3F3C1BC3-28F7-441C-A173-AB236845891F}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
