@@ -159,9 +159,9 @@ Here's a simple demo setting `Index` to inherit from `MyWrapper`.
 
 The result:
  
-[Wrapper Demo](./assets/Wrapper-Components/wrapper-demo.png)
+![Wrapper Demo](./assets/Wrapper-Components/wrapper-demo.png)
 
 ## Appendix
 
-[The Lean, Mean, Green Component]([The Lean, Mean, Green Component](https://shauncurtis.github.io/Building-Blazor-Applications/Leaner-Meaner-Greener-Components.html)
-)
+[The Lean, Mean, Green Component](https://shauncurtis.github.io/Building-Blazor-Applications/Leaner-Meaner-Greener-Components.html)
+
