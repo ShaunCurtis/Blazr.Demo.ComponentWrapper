@@ -18,9 +18,9 @@ It's relatively easy to do this:
 However, there are situations where this doesn't quite fit.  
 
 1. You want to enforce a wrapper layout around any content entered in the component.
-2. You need all the code under one roof to access the shared data mand methods.
+2. You need all the code under one roof to access the shared data mnd methods.
 
-Forms are a good example.  You want to impose a standard edit or view form wrapper to all your data forms.  It's just the internal field definitions that are specific.  You can use the method above, but it's clumpsy and contains repetitive code.
+Forms are a good example.  You want to impose a standard edit or view form wrapper to all your data forms.  It's just the internal field definitions that are specific.  You can use the method above, but it's clumsy and contains repetitive code.
 
 Unfortunately the standard Blazor component wasn't designed for this.  There are workarounds, but none are nice.
 
